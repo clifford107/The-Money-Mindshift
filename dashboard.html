@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard - FinDash</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.3/dist/tailwind.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+</head>
+<body class="bg-gray-50">
+
+<div class="flex min-h-screen">
+  <!-- Sidebar -->
+  <aside class="bg-white w-64 shadow-lg p-6 flex flex-col">
+    <h2 class="text-2xl font-bold text-green-600 mb-8">FinDash</h2>
+    <nav class="flex flex-col gap-4">
+      <a href="dashboard.html" class="text-gray-700 font-medium hover:text-green-600">Dashboard</a>
+      <a href="upgrade.html" class="text-gray-700 font-medium hover:text-green-600">Upgrade</a>
+      <a href="index.html" class="text-gray-700 font-medium hover:text-green-600">Blog</a>
+      <button id="logoutBtn" class="mt-6 bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600">Logout</button>
+    </nav>
+  </aside>
+
+  <!-- Main -->
+  <main class="flex-1 p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+      <!-- Financial Health -->
+      <div class="bg-gradient-to-r from-green-400 to-green-600 text-white p-6 rounded-2xl shadow-lg">
+        <h3 class="text-lg font-bold">Financial Health</h3>
+        <p id="healthScore" class="text-3xl mt-2">Loading...</p>
+      </div>
+
+      <!-- Budget vs Actual -->
+      <div class="bg-white p-6 rounded-2xl shadow-lg premium">
+        <h3 class="text-lg font-bold">Budget vs Actual</h3>
+        <canvas id="budgetChart" class="mt-4"></canvas>
+        <p class="lock-text text-gray-400 mt-2">Upgrade to Premium to unlock full analytics</p>
+        <button class="upgrade-btn mt-4 bg-green-600 text-white px-4 py-2 rounded-lg">Upgrade</button>
+      </div>
+
+      <!-- Payment History -->
+      <div class="bg-white p-6 rounded-2xl shadow-lg premium">
+        <h3 class="text-lg font-bold">Payment History</h3>
+        <table class="mt-2 w-full text-left table-auto text-gray-700" id="paymentHistory">
+          <tr><th>Date</th><th>Amount</th><th>Status</th><th>Network</th></tr>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="js/dashboard.js"></script>
+<script>
+// Logout
+document.getElementById("logoutBtn").addEventListener("click", () => {
+  firebase.auth().signOut().then(() => window.location="login.html");
+});
+</script>
+
+</body>
+</html>
